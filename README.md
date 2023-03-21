@@ -1,57 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Comment Approval System
 
-## About Laravel
+This project contains the implementation of `Comment Approval System`, a Laravel service used to handle comments in a web application. The service provides methods for retrieving and updating comments using an instance of the `Comment` model.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Requirements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 8.x
+- Laravel 9.x
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
 
-## Learning Laravel
+1. Clone the repository using `git clone <repository_url>`
+2. Install the required dependencies using Composer: `composer install`
+3. Migrate and seed the database: `php artisan migrate --seed`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Usage
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The `CommentService` provides the following methods:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### `getComments`
 
-## Laravel Sponsors
+Retrieve comments from the database.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```php
+public function getComments(string $orderBy, string $search = null): array;
+```
 
-### Premium Partners
+- `$orderBy` (string, required): The field to order the comments by. Valid values are: `nameAsc`, `nameDesc`, `dateAsc`, `dateDesc`.
+- `$search` (string, optional): A search string to filter the comments by.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Returns an array of comments ordered by the specified field.
+
+### `updateApproval`
+
+Update the approval status of a comment in the database.
+
+```php
+public function updateApproval(int $id, bool $approved): object;
+```
+
+- `$id` (int, required): The ID of the comment to update.
+- `$approved` (bool, required): The new approval status of the comment.
+
+Returns the updated comment as an object.
+
+## API Endpoints
+
+This project also provides two API endpoints for interacting with the `CommentService`:
+
+### `GET /api/v1/comments`
+
+Retrieve comments from the database.
+
+- `orderBy` (string, optional): The field to order the comments by. Valid values are: `nameAsc`, `nameDesc`, `dateAsc`, `dateDesc`.
+- `search` (string, optional): A search string to filter the comments by.
+
+Returns a JSON object with an array of comments ordered by the specified field.
+
+### `PUT /api/v1/comments/{id}`
+
+Update the approval status of a comment in the database.
+
+- `approved` (bool, required): The new approval status of the comment.
+
+Returns a JSON object with the updated comment.
+
+## Front-End
+
+A React front-end is included in this project for displaying and approving comments. The front-end code is located in the `resources/js/components` directory. 
+
+### Requirements
+
+- Node.js 12.x or above
+
+### Installation
+
+1. Move to the `resources/js/components` directory: `cd resources/js/components`
+2. Install the required dependencies using NPM or Yarn: `npm install` or `yarn install`
+
+### Usage
+
+The front-end can be started using the following command from within the `resources/js/components` directory:
+
+```bash
+npm run dev
+```
+
+This command will start a development server at `http://localhost:3000`. You can access the front-end by opening a web browser and navigating to this URL.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+If you find any issue or want to contribute to this project, please open an issue on this repository or submit a pull request. We welcome contributions from anyone, and thank you in advance for your help!
+
 
 ## Code of Conduct
 
