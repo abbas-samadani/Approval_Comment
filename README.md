@@ -12,7 +12,8 @@ This project contains the implementation of `Comment Approval System`, a Laravel
 
 1. Clone the repository using `git clone <https://github.com/abbas-samadani/Approval_Comment>`
 2. Install the required dependencies using Composer: `composer install`
-3. Migrate the database: `php artisan migrate`
+3. Create a new MySQL database and update the .env file with your database credentials.
+4. Migrate the database: `php artisan migrate`
 
 ## Usage
 
@@ -67,14 +68,14 @@ Returns a JSON object with the updated comment.
 
 ## Test
 
-This project is testable by following this command:
+To test this project, you can use the following command:
 
 `php artisan test`
 
 
 ## Front-End
 
-A React front-end is included in this project for displaying and approving comments. The front-end code is located in the `resources/js/components` directory. 
+A React front-end is included in this project for displaying and approving comments. The front-end code is located in the `front_end` directory. 
 
 ### Requirements
 
@@ -93,20 +94,17 @@ The front-end can be started using the following command from within the `front_
 npm run dev
 ```
 
-This command will start a development server at `http://localhost:3000`. You can access the front-end by opening a web browser and navigating to this URL.
+This command will start a development server at `http://localhost:5173`. You can access the front-end by opening a web browser and navigating to this URL.
 
-## Contributing
+## Built With
 
-If you find any issue or want to contribute to this project, please open an issue on this repository or submit a pull request. We welcome contributions from anyone, and thank you in advance for your help!
+1. Laravel - The PHP framework used
+2. React.js - The JavaScript library used
+3. Tailwind CSS
 
+## Authors
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Abbas Samadani
 
 ## License
 
