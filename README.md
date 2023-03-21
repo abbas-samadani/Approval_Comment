@@ -10,9 +10,9 @@ This project contains the implementation of `Comment Approval System`, a Laravel
 
 ## Installation
 
-1. Clone the repository using `git clone <repository_url>`
+1. Clone the repository using `git clone <https://github.com/abbas-samadani/Approval_Comment>`
 2. Install the required dependencies using Composer: `composer install`
-3. Migrate and seed the database: `php artisan migrate --seed`
+3. Migrate the database: `php artisan migrate`
 
 ## Usage
 
@@ -65,6 +65,13 @@ Update the approval status of a comment in the database.
 
 Returns a JSON object with the updated comment.
 
+## Test
+
+This project is testable by following this command:
+
+`php artisan test`
+
+
 ## Front-End
 
 A React front-end is included in this project for displaying and approving comments. The front-end code is located in the `resources/js/components` directory. 
@@ -75,12 +82,12 @@ A React front-end is included in this project for displaying and approving comme
 
 ### Installation
 
-1. Move to the `resources/js/components` directory: `cd resources/js/components`
+1. Move to the `front_end` directory: `cd front_end`
 2. Install the required dependencies using NPM or Yarn: `npm install` or `yarn install`
 
 ### Usage
 
-The front-end can be started using the following command from within the `resources/js/components` directory:
+The front-end can be started using the following command from within the `front_end` directory:
 
 ```bash
 npm run dev
