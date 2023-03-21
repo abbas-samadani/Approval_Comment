@@ -1,65 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { Comment } from "./Comment";
 import { getComments, approveComment } from "./../Api";
+import { SearchBar } from "./SearchBar";
+import { SortDropdown } from "./SortDropdown";
 
 const CommentsList = () => {
   const [comments, setComments] = useState([]);
-  const [orderBy, setOrderBy] = useState('dateDesc');
-  const [searchName, setSearchName] = useState("");
-  const [searchInput, setSearchInput] = useState("");
+  const [sortBy, setSortBy] = useState("dateDesc");
+  const [searchBy, setSearchBy] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const fetchComments = () => {
-    getComments(orderBy, searchName).then(data => {
+  const loadComments = () => {
+    getComments(sortBy, searchBy).then(data => {
       setComments(data);
     });
   };
 
   useEffect(() => {
-    fetchComments();
-  }, [orderBy,searchName]);
+    loadComments();
+  }, [sortBy, searchBy, searchTerm]);
 
-
-  const handleSearch = e => {
+  const handleSearchSubmit = e => {
     e.preventDefault();
-    const searchedName = searchInput.toLowerCase();
-    getComments(orderBy, searchedName).then(data => {
+    const searchedName = searchTerm.toLowerCase();
+    getComments(sortBy, searchedName).then(data => {
       setComments(data);
     });
   };
 
   const handleApproveClick = (id, approved) => {
     approveComment(id, approved).then(updatedComment => {
-      setComments((comments) =>
-        comments.map((comment) =>
+      setComments(comments =>
+        comments.map(comment =>
           comment.id === updatedComment.id ? updatedComment : comment
         )
       );
-    })
+    });
   };
 
   return (
     <div className="container m-auto">
-      <form onSubmit={handleSearch}>
-        <input
-          className="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
-          type="text"
-          placeholder="Search by name"
-          value={searchInput}
-          onChange={e => setSearchInput(e.target.value)}
+      <div className="flex flex-row gap-24 my-5">
+        <SearchBar
+          searchTerm={searchTerm}
+          searchBy={searchBy}
+          onSubmit={handleSearchSubmit}
+          onSearchTermChange={setSearchTerm}
         />
-        <button type="submit">Search</button>
-
-      </form>
-      <select value={orderBy} onChange={e => setOrderBy(e.target.value)}>
-        <option value="dateDesc">Newest First</option>
-        <option value="dateAsc">Oldest First</option>
-        <option value="nameAsc">Name (A-Z)</option>
-        <option value="nameDesc">Name (Z-A)</option>
-      </select>
+        <SortDropdown sortBy={sortBy} onSortByChange={setSortBy} />
+      </div>
 
       <ul>
         {comments.map(comment => (
-            <Comment key={comment.id} comment={comment} handleApprove={handleApproveClick}/>
+          <Comment
+            key={comment.id}
+            comment={comment}
+            handleApprove={handleApproveClick}
+          />
         ))}
       </ul>
     </div>
